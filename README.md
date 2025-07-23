@@ -3,23 +3,25 @@
 Simulador educativo de compra/venta de acciones y criptomonedas con estadísticas en tiempo real y asistente inteligente basado en IA.
 
 ---
+
 ## Índice
 
-- [📝 Descripción](#📝-descripción)
-- [🚀 Demo](#🚀-demo)
-- [🧱 Tecnologías utilizadas](#🧱-tecnologías-utilizadas)
-  - [🔧 Backend](#🔧-backend)
-  - [💻 Frontend](#💻-frontend)
-- [🔐 Seguridad](#🔐-seguridad)
-- [📌 Funcionalidades principales](#📌-funcionalidades-principales)
-- [⚙️ Instalación y ejecución](#⚙️-instalación-y-ejecución)
-  - [🐳 Docker Compose](#🐳-opción-1-usando-docker-compose)
-  - [🧰 Instalación manual](#🧰-opción-2-instalación-manual)
-- [⚠️ Estado del proyecto](#⚠️-estado-del-proyecto)
+- [Descripción](#descripción)
+- [Demo](#demo)
+- [Tecnologías utilizadas](#tecnologías-utilizadas)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Seguridad](#seguridad)
+- [Funcionalidades principales](#funcionalidades-principales)
+- [Instalación y ejecución](#instalación-y-ejecución)
+  - [Opción 1: Usando Docker Compose](#opción-1-usando-docker-compose)
+  - [Opción 2: Instalación manual](#opción-2-instalación-manual)
+- [Estado del proyecto](#estado-del-proyecto)
+
 
 
 ---
-## 📝 Descripción
+## 📝 Descripción <a name="descripción"></a>
 
 **StatBroker** es una plataforma diseñada para aprender sobre inversión en mercados financieros mediante simulaciones con dinero ficticio. Permite a los usuarios:
 
