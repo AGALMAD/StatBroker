@@ -48,6 +48,7 @@ Simulador educativo de compra/venta de acciones y criptomonedas con estadística
 - **Spring Boot 3**: Framework Java para desarrollar APIs robustas y mantenibles.
 - **PostgreSQL**: Base de datos confiable para el almacenamiento seguro de la información.
 - **JWT**: Mecanismo de autenticación para asegurar el acceso solo a usuarios autorizados.
+- **Swagger (SpringDoc)**: Documentación interactiva de la API que facilita la exploración y pruebas de endpoints.
 - **Docker**: Contenerización que garantiza consistencia en distintos entornos.
 - **GitHub Actions**: Automatización de pruebas y despliegues para mayor eficiencia.
 - **Clean Architecture**: Estructura de código que facilita escalabilidad y mantenimiento.
@@ -61,6 +62,8 @@ Simulador educativo de compra/venta de acciones y criptomonedas con estadística
 - **Axios**: Cliente HTTP para comunicación fluida con la API.
 - **React Query**: Optimiza la gestión y actualización de datos remotos.
 - **Chart.js**: Librería para crear gráficos interactivos y visualizaciones claras.
+- **React-i18next**: Soporte multilenguaje para ofrecer una experiencia internacionalizada.
+
 
 ---
 
