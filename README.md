@@ -16,6 +16,7 @@ Simulador educativo de compra/venta de acciones y criptomonedas con estadística
 - [Instalación y ejecución](#instalación-y-ejecución)
   - [Opción 1: Usando Docker Compose](#opción-1-usando-docker-compose)
   - [Opción 2: Instalación manual](#opción-2-instalación-manual)
+  - [Pruebas](#pruebas)
 - [Estado del proyecto](#estado-del-proyecto)
 
 
@@ -32,7 +33,7 @@ Simulador educativo de compra/venta de acciones y criptomonedas con estadística
 
 ---
 
-## 🚀 Demo
+## 🚀 Demo <a name="demo"></a>
 
 [Accede a la demo en línea]()
 
@@ -40,9 +41,9 @@ Simulador educativo de compra/venta de acciones y criptomonedas con estadística
 
 ---
 
-## 🧱 Tecnologías utilizadas
+## 🧱 Tecnologías utilizadas <a name="tecnologías-utilizadas"></a>
 
-### 🔧 Backend
+### 🔧 Backend <a name="backend"></a>
 
 - **Spring Boot 3**: Framework Java para desarrollar APIs robustas y mantenibles.
 - **PostgreSQL**: Base de datos confiable para el almacenamiento seguro de la información.
@@ -51,7 +52,7 @@ Simulador educativo de compra/venta de acciones y criptomonedas con estadística
 - **GitHub Actions**: Automatización de pruebas y despliegues para mayor eficiencia.
 - **Clean Architecture**: Estructura de código que facilita escalabilidad y mantenimiento.
 
-### 💻 Frontend
+### 💻 Frontend <a name="frontend"></a>
 
 - **React + Vite + TypeScript**: Herramientas modernas para construir interfaces rápidas y tipadas.
 - **Tailwind CSS**: Framework CSS que permite diseñar de forma ágil y responsiva.
@@ -63,7 +64,7 @@ Simulador educativo de compra/venta de acciones y criptomonedas con estadística
 
 ---
 
-## 🔐 Seguridad
+## 🔐 Seguridad <a name="seguridad"></a>
 
 - Autenticación robusta mediante JWT
 - Validación exhaustiva de entradas para evitar vulnerabilidades
@@ -72,7 +73,7 @@ Simulador educativo de compra/venta de acciones y criptomonedas con estadística
 
 ---
 
-## 📌 Funcionalidades principales
+## 📌 Funcionalidades principales <a name="funcionalidades-principales"></a>
 
 - 📈 Estadísticas en tiempo real de mercados financieros (cripto y bolsa)
 - 💰 Simulador de compra/venta con dinero ficticio
@@ -82,15 +83,15 @@ Simulador educativo de compra/venta de acciones y criptomonedas con estadística
 
 ---
 
-## ⚙️ Instalación y ejecución
+## ⚙️ Instalación y ejecución <a name="instalación-y-ejecución"></a>
 
-### 🐳 Opción 1: Usando Docker Compose
+### 🐳 Opción 1: Usando Docker Compose <a name="opción-1-usando-docker-compose"></a>
 
 ```bash
 docker-compose up --build
 ```
 
-### 🧰 Opción 2: Instalación manual
+### 🧰 Opción 2: Instalación manual <a name="opción-2-instalación-manual"></a>
 
 
 Backend
@@ -106,7 +107,7 @@ npm install
 npm run dev
 ```
 
-🧪 Pruebas
+### 🧪 Pruebas <a name="pruebas"></a>
 Para ejecutar las pruebas unitarias y de integración:
 
 Backend
@@ -124,7 +125,7 @@ npm run test
 
 ---
 
-## ⚠️ Estado del proyecto
+## ⚠️ Estado del proyecto <a name="estado-del-proyecto"></a>
 
 **StatBroker** está actualmente en desarrollo activo. Algunas funcionalidades pueden no estar completas o pueden cambiar significativamente.  
 Agradecemos cualquier feedback, reporte de bugs o contribución para mejorar la plataforma.
