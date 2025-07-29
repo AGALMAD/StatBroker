@@ -1,5 +1,7 @@
 package com.statbroker.backend.dto.Auth;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +14,13 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisterRequest {
-    String name;
-    String email;
-    String password;
+    @NotBlank(message = "Name cannot be blank")
+    private String name;
+
+    @Email(message = "Email should be valid")
+    @NotBlank(message = "Email cannot be blank")
+    private String email;
+
+    @NotBlank(message = "Password cannot be blank")
+    private String password;
 }
