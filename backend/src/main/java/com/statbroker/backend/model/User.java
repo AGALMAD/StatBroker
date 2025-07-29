@@ -36,6 +36,7 @@ public class User implements UserDetails {
     @NotBlank(message = "Password cannot be blank")
     @Column(nullable = false)
     String password;
+    @Builder.Default
     @NotNull(message = "The confirmed state cannot be null")
     @Column(nullable = false)
     Boolean confirmed = false;
