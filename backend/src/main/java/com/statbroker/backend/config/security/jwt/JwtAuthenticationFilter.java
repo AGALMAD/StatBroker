@@ -1,4 +1,4 @@
-package com.statbroker.backend.config.jwt;
+package com.statbroker.backend.config.security.jwt;
 
 import java.io.IOException;
 

@@ -1,7 +1,7 @@
 package com.statbroker.backend.config.security;
 
-import com.statbroker.backend.config.jwt.JwtAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
+
+import com.statbroker.backend.config.security.jwt.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -11,8 +11,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -26,6 +27,10 @@ public class SecurityConfig {
         return http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authRequest -> authRequest
+                        .anyRequest()
+                        .permitAll()
+                )
                 .sessionManagement(sessionManager -> sessionManager
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
@@ -35,3 +40,4 @@ public class SecurityConfig {
     }
 
 }
+
