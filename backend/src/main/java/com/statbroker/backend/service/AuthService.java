@@ -9,9 +9,11 @@ import com.statbroker.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.AccessDeniedException;
 import java.util.Optional;
 
 
@@ -27,7 +29,7 @@ public class AuthService {
     public AuthDto createAccount(RegisterRequest data){
 
         if (userRepository.existsByEmail(data.getEmail())) {
-            throw new IllegalArgumentException("Email already exist");
+            throw new UsernameNotFoundException("Email already exist");
         }
 
         User user = User.builder()
@@ -50,7 +52,7 @@ public class AuthService {
         Optional<User> user = userRepository.findByEmail(data.getEmail());
 
         if(user.isEmpty())
-            throw new BadRequestException("User not found");
+            throw new UsernameNotFoundException("User not found");
 
         if (!passwordEncoder.matches(data.getPassword(), user.get().getPassword())) {
             throw new BadCredentialsException("Bad credentials");
@@ -60,5 +62,25 @@ public class AuthService {
                 .accessToken(jwtService.generateToken(user.get()))
                 .refreshToken(jwtService.generateRefreshToken(user.get()))
                 .build();
+    }
+
+
+    public AuthDto refreshToken(AuthDto tokens, String userEmail) throws BadRequestException, AccessDeniedException {
+
+        Optional<User> user = userRepository.findByEmail(userEmail);
+
+        if(user.isEmpty())
+            throw new UsernameNotFoundException("User not found");
+
+
+        if (!jwtService.isTokenValid(tokens.getAccessToken(), user.get() ) | !jwtService.isTokenValid(tokens.getRefreshToken(), user.get() )){
+            throw new AccessDeniedException("Tokens are not valid");
+        }
+
+        return AuthDto.builder()
+                .accessToken(jwtService.generateToken(user.get()))
+                .refreshToken(tokens.getRefreshToken())
+                .build();
+
     }
 }

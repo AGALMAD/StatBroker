@@ -7,16 +7,14 @@ import com.statbroker.backend.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.nio.file.AccessDeniedException;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,6 +40,15 @@ public class AuthController {
         return ResponseEntity.ok(response);
 
 
+
+    }
+
+
+    @PostMapping("/refresh")
+    public ResponseEntity<AuthDto> refreshToken(Authentication auth, @RequestBody AuthDto data) throws BadRequestException, AccessDeniedException {
+
+        AuthDto response = authService.refreshToken(data,auth.getName());
+        return ResponseEntity.ok(response);
 
     }
 }
