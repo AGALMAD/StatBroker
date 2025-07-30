@@ -19,7 +19,6 @@ import java.nio.file.AccessDeniedException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
-
 public class AuthController {
 
     private final AuthService authService;
@@ -38,8 +37,6 @@ public class AuthController {
 
         AuthDto response = authService.login(data);
         return ResponseEntity.ok(response);
-
-
 
     }
 
