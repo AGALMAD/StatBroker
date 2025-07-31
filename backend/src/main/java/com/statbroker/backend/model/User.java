@@ -27,7 +27,7 @@ public class User implements UserDetails {
     String name;
     @Column(nullable = false, unique = true)
     String email;
-    @Column(nullable = false)
+    @Column(nullable = true)
     String password;
     @Builder.Default
     @Column(nullable = false)

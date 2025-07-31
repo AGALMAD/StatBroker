@@ -64,6 +64,25 @@ public class AuthService {
                 .build();
     }
 
+    public AuthDto oauthLogin(String email, String name) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    User newUser = User.builder()
+                            .email(email)
+                            .name(name)
+                            .build();
+                    return userRepository.save(newUser);
+                });
+
+        return AuthDto.builder()
+                .accessToken(jwtService.generateToken(user))
+                .refreshToken(jwtService.generateRefreshToken(user))
+                .build();
+
+    }
+
+
 
     public AuthDto refreshToken(AuthDto tokens, String userEmail) throws BadRequestException, AccessDeniedException {
 

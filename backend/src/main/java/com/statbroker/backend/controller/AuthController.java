@@ -3,22 +3,23 @@ package com.statbroker.backend.controller;
 import com.statbroker.backend.dto.Auth.AuthDto;
 import com.statbroker.backend.dto.Auth.LoginRequest;
 import com.statbroker.backend.dto.Auth.RegisterRequest;
+import com.statbroker.backend.model.User;
 import com.statbroker.backend.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.web.bind.annotation.*;
 
 import java.nio.file.AccessDeniedException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     private final AuthService authService;
@@ -40,6 +41,17 @@ public class AuthController {
 
     }
 
+    @GetMapping("/oauth")
+    public ResponseEntity<AuthDto> loginSuccess(@AuthenticationPrincipal OAuth2User oauthUser) {
+        String email = oauthUser.getAttribute("email");
+        String name = oauthUser.getAttribute("name");
+
+
+        AuthDto auth = authService.oauthLogin(email,name);
+
+        return ResponseEntity.ok(auth);
+    }
+
 
     @PostMapping("/refresh")
     public ResponseEntity<AuthDto> refreshToken(Authentication auth, @RequestBody AuthDto data) throws BadRequestException, AccessDeniedException {
@@ -48,4 +60,6 @@ public class AuthController {
         return ResponseEntity.ok(response);
 
     }
+
+
 }

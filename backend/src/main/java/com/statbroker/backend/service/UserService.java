@@ -17,6 +17,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+
+    public boolean existUserById(String userEmail){
+        return userRepository.existsByEmail(userEmail);
+    }
+
     public UserDto getUserByEmail(String userEmail){
         Optional<User> user = userRepository.findByEmail(userEmail);
 
