@@ -1,6 +1,6 @@
 package com.statbroker.backend.mapper;
 
-import com.statbroker.backend.dto.User.UserDto;
+import com.statbroker.backend.dto.user.UserDto;
 import com.statbroker.backend.model.User;
 import org.mapstruct.Mapper;
 

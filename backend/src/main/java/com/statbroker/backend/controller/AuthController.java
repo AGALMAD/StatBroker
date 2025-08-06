@@ -1,13 +1,12 @@
 package com.statbroker.backend.controller;
 
-import com.statbroker.backend.dto.Auth.AuthDto;
-import com.statbroker.backend.dto.Auth.LoginRequest;
-import com.statbroker.backend.dto.Auth.RegisterRequest;
-import com.statbroker.backend.model.User;
+import com.statbroker.backend.dto.auth.AuthDto;
+import com.statbroker.backend.dto.auth.LoginRequest;
+import com.statbroker.backend.dto.auth.RegisterRequest;
 import com.statbroker.backend.service.AuthService;
+import com.statbroker.backend.service.EmailService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -23,6 +22,7 @@ import java.nio.file.AccessDeniedException;
 public class AuthController {
 
     private final AuthService authService;
+    private final EmailService emailService;
 
 
     @PostMapping("/signup")
@@ -61,5 +61,10 @@ public class AuthController {
 
     }
 
+    @PostMapping("/send-code")
+    public ResponseEntity<String> sendCode(@RequestParam String userEmail) {
+        emailService.sendVerificationEmail(userEmail, authService.generateVerificationCode(userEmail));
+        return ResponseEntity.ok("Codigo enviado al correo " + userEmail);
+    }
 
 }

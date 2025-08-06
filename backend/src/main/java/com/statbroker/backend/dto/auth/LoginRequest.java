@@ -1,4 +1,4 @@
-package com.statbroker.backend.dto.Auth;
+package com.statbroker.backend.dto.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

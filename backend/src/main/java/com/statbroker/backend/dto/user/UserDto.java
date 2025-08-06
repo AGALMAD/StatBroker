@@ -1,16 +1,20 @@
-package com.statbroker.backend.dto.Auth;
+package com.statbroker.backend.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthDto {
-    String accessToken;
-    String refreshToken;
+public class UserDto {
+
+    UUID id;
+    String name;
+    String email;
 
 }

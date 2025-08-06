@@ -1,6 +1,6 @@
 package com.statbroker.backend.controller;
 
-import com.statbroker.backend.dto.User.UserDto;
+import com.statbroker.backend.dto.user.UserDto;
 import com.statbroker.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

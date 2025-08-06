@@ -1,11 +1,12 @@
 package com.statbroker.backend.service;
 
 import com.statbroker.backend.config.security.jwt.JwtService;
-import com.statbroker.backend.dto.Auth.AuthDto;
-import com.statbroker.backend.dto.Auth.LoginRequest;
-import com.statbroker.backend.dto.Auth.RegisterRequest;
+import com.statbroker.backend.dto.auth.AuthDto;
+import com.statbroker.backend.dto.auth.LoginRequest;
+import com.statbroker.backend.dto.auth.RegisterRequest;
 import com.statbroker.backend.model.User;
 import com.statbroker.backend.repository.UserRepository;
+import com.statbroker.backend.util.CodeGenerator;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -101,5 +103,9 @@ public class AuthService {
                 .refreshToken(tokens.getRefreshToken())
                 .build();
 
+    }
+
+    public String generateVerificationCode(String userEmail){
+        return CodeGenerator.generateCode();
     }
 }

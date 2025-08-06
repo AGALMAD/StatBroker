@@ -1,6 +1,6 @@
 package com.statbroker.backend.service;
 
-import com.statbroker.backend.dto.User.UserDto;
+import com.statbroker.backend.dto.user.UserDto;
 import com.statbroker.backend.mapper.UserMapper;
 import com.statbroker.backend.model.User;
 import com.statbroker.backend.repository.UserRepository;
