@@ -5,8 +5,11 @@ import com.statbroker.backend.dto.auth.AuthDto;
 import com.statbroker.backend.dto.auth.LoginRequest;
 import com.statbroker.backend.dto.auth.RegisterRequest;
 import com.statbroker.backend.model.User;
+import com.statbroker.backend.model.VerificationCode;
 import com.statbroker.backend.repository.UserRepository;
+import com.statbroker.backend.repository.VerificationCodeRepository;
 import com.statbroker.backend.util.CodeGenerator;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.AccessDeniedException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,8 +28,11 @@ import java.util.UUID;
 public class AuthService {
 
     private final UserRepository userRepository;
+    private final VerificationCodeRepository verificationCodeRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+
+    private final int MINUTES_TO_EXPIRATION = 5;
 
 
     public AuthDto createAccount(RegisterRequest data){
@@ -105,7 +112,34 @@ public class AuthService {
 
     }
 
+    @Transactional
     public String generateVerificationCode(String userEmail){
-        return CodeGenerator.generateCode();
+
+        User actualUser = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        Optional<VerificationCode> existingCode = verificationCodeRepository.findByUser(actualUser);
+
+        if (existingCode.isPresent()) {
+            if (existingCode.get().getExpiresAt().isAfter(LocalDateTime.now())) {
+                return existingCode.get().getCode();
+            } else {
+                verificationCodeRepository.delete(existingCode.get());
+            }
+        }
+
+
+        VerificationCode newVerificationCode = VerificationCode.builder()
+                .code(CodeGenerator.generateCode())
+                .user(actualUser)
+                .createdAt(LocalDateTime.now())
+                .expiresAt(LocalDateTime.now().plusMinutes(MINUTES_TO_EXPIRATION))
+                .build();
+
+
+        verificationCodeRepository.save(newVerificationCode);
+
+        return newVerificationCode.getCode();
+
     }
 }

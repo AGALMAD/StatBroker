@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="users", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
+@Table(name="users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue
@@ -27,10 +27,10 @@ public class User implements UserDetails {
     String name;
     @Column(nullable = false, unique = true)
     String email;
-    @Column(nullable = true)
+    @Column
     String password;
     @Builder.Default
-    @Column(nullable = false)
+    @Column
     Boolean confirmed = false;
 
     @Override

@@ -11,6 +11,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,10 +62,12 @@ public class AuthController {
 
     }
 
+
     @PostMapping("/send-code")
-    public ResponseEntity<String> sendCode(@RequestParam String userEmail) {
-        emailService.sendVerificationEmail(userEmail, authService.generateVerificationCode(userEmail));
-        return ResponseEntity.ok("Codigo enviado al correo " + userEmail);
+    public ResponseEntity<String> sendCode(Authentication auth) {
+        emailService.sendVerificationEmail(auth.getName(), authService.generateVerificationCode(auth.getName()));
+        return ResponseEntity.ok("Codigo enviado al correo " + auth.getName());
     }
+
 
 }
