@@ -118,6 +118,9 @@ public class AuthService {
         User actualUser = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
+        if (actualUser.getConfirmed())
+            throw new IllegalStateException("User is already confirmed");
+
         Optional<VerificationCode> existingCode = verificationCodeRepository.findByUser(actualUser);
 
         if (existingCode.isPresent()) {
@@ -142,4 +145,25 @@ public class AuthService {
         return newVerificationCode.getCode();
 
     }
+
+    @Transactional
+    public void verifyCode(String userEmail, String code){
+        User actualUser = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (actualUser.getConfirmed())
+            throw new IllegalStateException("User is already confirmed");
+
+        VerificationCode existingCode = verificationCodeRepository.findByUserAndCode(actualUser,code)
+                .orElseThrow(() -> new IllegalArgumentException("Bad Code"));
+
+        actualUser.setConfirmed(true);
+
+        userRepository.save(actualUser);
+        verificationCodeRepository.delete(existingCode);
+
+    }
+
+
+
 }

@@ -66,7 +66,13 @@ public class AuthController {
     @PostMapping("/send-code")
     public ResponseEntity<String> sendCode(Authentication auth) {
         emailService.sendVerificationEmail(auth.getName(), authService.generateVerificationCode(auth.getName()));
-        return ResponseEntity.ok("Codigo enviado al correo " + auth.getName());
+        return ResponseEntity.ok("code sent to  " + auth.getName());
+    }
+
+    @PostMapping("/verify")
+    public ResponseEntity<String> verifyCode(Authentication auth, String code) {
+        authService.verifyCode(auth.getName(), code);
+        return ResponseEntity.ok("code verified successfully");
     }
 
 
