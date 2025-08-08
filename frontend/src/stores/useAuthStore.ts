@@ -3,12 +3,12 @@ import { create } from "zustand";
 
 interface AuthState {
   authTokens: AuthTokens | null;
-  setToken: (authTokens: AuthTokens) => void;
-  clearToken: () => void;
+  setTokens: (authTokens: AuthTokens) => void;
+  clearTokens: () => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
   authTokens: null,
-  setToken: (authTokens) => set({ authTokens }),
-  clearToken: () => set({ authTokens: null }),
+  setTokens: (authTokens) => set({ authTokens }),
+  clearTokens: () => set({ authTokens: null }),
 }));

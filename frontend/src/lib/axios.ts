@@ -1,15 +1,18 @@
+import { useAuthStore } from "@/stores/useAuthStore";
 import axios from "axios";
-import { useAuthStore } from "stores/useAuthStore";
 
 const api = axios.create({
   baseURL: `${import.meta.env.VITE_SERVER_URL}/api`,
 });
 
 api.interceptors.request.use((config) => {
-  const { authTokens } = useAuthStore.getState();
+  const state = useAuthStore.getState();
+  const token = state?.authTokens?.accessToken;
 
-  if (authTokens?.accessToken) {
-    config.headers.Authorization = `Bearer ${authTokens.accessToken}`;
+  console.log("Request Interceptor: Adding Authorization header", token);
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });

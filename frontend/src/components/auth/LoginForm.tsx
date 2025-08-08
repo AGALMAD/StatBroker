@@ -1,50 +1,135 @@
-import { LoginRequest } from "@/types/auth";
 import { useForm } from "react-hook-form";
-
-type LoginForm = LoginRequest & {
-  rememberMe: boolean;
-};
+import { toast } from "react-toastify";
+import { loginUser } from "@/services/auth.service";
+import { LoginRequest } from "@/types/auth";
+import { useNavigate } from "react-router-dom";
+import { Input, Checkbox, Button } from "@headlessui/react";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
-  } = useForm<LoginForm>();
+  } = useForm<LoginRequest>({
+    defaultValues: {
+      rememberMe: false,
+    },
+  });
 
-  const onSubmit = (data: LoginForm) => {
-    console.log("Datos enviados:", data);
+  const rememberMe = watch("rememberMe");
+
+  const onSubmit = async (data: LoginRequest) => {
+    try {
+      const response = await loginUser(data);
+      if (response) {
+        toast.success("Login successful");
+        //navigate("/");
+      }
+    } catch (error) {
+      toast.error((error as Error).message);
+    }
   };
 
   return (
-    <>
-      <h1>Login in to StatBroker</h1>
+    <div className="min-h-screen flex items-center justify-center bg-background text-primaryText px-4">
+      <div className="w-full max-w-md bg-surface rounded-xl shadow-lg p-8">
+        <h1 className="text-2xl font-bold mb-6 text-center">
+          Log in to StatBroker
+        </h1>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="text"
-          {...register("email", { required: "El email es obligatorio" })}
-        />
-        {errors.email && <p>{errors.email.message}</p>}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Email */}
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm text-secondaryText mb-1"
+            >
+              Email
+            </label>
+            <Input
+              id="email"
+              type="email"
+              {...register("email", { required: "El email es obligatorio" })}
+              className="w-full px-4 py-2 rounded bg-background text-primaryText border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            {errors.email && (
+              <p className="text-error text-sm mt-1">{errors.email.message}</p>
+            )}
+          </div>
 
-        <label htmlFor="password">Contraseña</label>
-        <input
-          id="password"
-          type="password"
-          {...register("password", {
-            required: "La contraseña es obligatoria",
-          })}
-        />
-        {errors.password && <p>{errors.password.message}</p>}
+          {/* Password */}
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-sm text-secondaryText mb-1"
+            >
+              Contraseña
+            </label>
+            <Input
+              id="password"
+              type="password"
+              {...register("password", {
+                required: "La contraseña es obligatoria",
+              })}
+              className="w-full px-4 py-2 rounded bg-background text-primaryText border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
+            />
+            {errors.password && (
+              <p className="text-error text-sm mt-1">
+                {errors.password.message}
+              </p>
+            )}
+          </div>
 
-        <label htmlFor="rememberMe">
-          <input id="rememberMe" type="checkbox" {...register("rememberMe")} />
-          Recordarme
-        </label>
-        <input type="submit" value="Login" />
-      </form>
-    </>
+          {/* Remember Me Checkbox */}
+          <Checkbox
+            checked={rememberMe}
+            onChange={(val: boolean) => setValue("rememberMe", val)}
+            className="flex items-center cursor-pointer select-none text-secondaryText"
+          >
+            {({ checked }: { checked: boolean }) => (
+              <>
+                <span
+                  className={`w-5 h-5 mr-2 rounded border flex items-center justify-center ${
+                    checked
+                      ? "bg-primary border-primary"
+                      : "bg-background border-gray-700"
+                  }`}
+                >
+                  {checked && (
+                    <svg
+                      className="w-4 h-4 text-white"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  )}
+                </span>
+                Recordarme
+              </>
+            )}
+          </Checkbox>
+
+          {/* Submit Button */}
+          <Button
+            type="submit"
+            className="w-full bg-primary text-white font-semibold py-2 rounded hover:bg-green-600 transition-colors cursor-pointer"
+          >
+            Iniciar sesión
+          </Button>
+        </form>
+      </div>
+    </div>
   );
 }

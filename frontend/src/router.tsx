@@ -6,6 +6,7 @@ import Login from "./components/auth/LoginForm";
 import Register from "./components/auth/RegisterForm";
 import LoginForm from "./components/auth/LoginForm";
 import RegisterForm from "./components/auth/RegisterForm";
+import AuthLayout from "./layouts/AuthLayout";
 
 export const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: <Login />,
+    element: <AuthLayout />,
     children: [
       {
         path: "login",

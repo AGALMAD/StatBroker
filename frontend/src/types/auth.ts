@@ -8,12 +8,14 @@ export const authTokensSchema = z.object({
 export type LoginRequest = {
   email: string;
   password: string;
+  rememberMe: boolean;
 };
 
 export type RegisterRequest = {
   name: string;
   email: string;
   password: string;
+  rememberMe: boolean;
 };
 
 export type AuthTokens = z.infer<typeof authTokensSchema>;
