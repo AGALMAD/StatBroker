@@ -5,17 +5,15 @@ export const authTokensSchema = z.object({
   refreshToken: z.string(),
 });
 
-export const loginRequestSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
-});
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
 
-export const registerRequestSchema = z.object({
-  name: z.string().email(),
-  email: z.string().email(),
-  password: z.string(),
-});
+export type RegisterRequest = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 export type AuthTokens = z.infer<typeof authTokensSchema>;
-export type LoginRequest = z.infer<typeof loginRequestSchema>;
-export type RegisterRequest = z.infer<typeof registerRequestSchema>;
