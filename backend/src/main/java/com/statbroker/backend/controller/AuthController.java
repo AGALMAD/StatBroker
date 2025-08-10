@@ -26,7 +26,7 @@ public class AuthController {
     private final EmailService emailService;
 
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public ResponseEntity<AuthDto> createAccount(@Valid @RequestBody RegisterRequest data){
 
         AuthDto response = authService.createAccount(data);

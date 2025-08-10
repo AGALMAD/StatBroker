@@ -2,11 +2,13 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { loginUser } from "@/services/auth.service";
 import { LoginRequest } from "@/types/auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Input, Checkbox, Button } from "@headlessui/react";
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || "/";
 
   const {
     register,
@@ -27,7 +29,7 @@ export default function Login() {
       const response = await loginUser(data);
       if (response) {
         toast.success("Login successful");
-        //navigate("/");
+        navigate(from);
       }
     } catch (error) {
       toast.error((error as Error).message);
@@ -53,7 +55,7 @@ export default function Login() {
             <Input
               id="email"
               type="email"
-              {...register("email", { required: "El email es obligatorio" })}
+              {...register("email", { required: "Email is required" })}
               className="w-full px-4 py-2 rounded bg-background text-primaryText border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
             />
             {errors.email && (
@@ -73,7 +75,7 @@ export default function Login() {
               id="password"
               type="password"
               {...register("password", {
-                required: "La contraseña es obligatoria",
+                required: "Password is required",
               })}
               className="w-full px-4 py-2 rounded bg-background text-primaryText border border-gray-700 focus:outline-none focus:ring-2 focus:ring-primary"
             />
@@ -116,7 +118,7 @@ export default function Login() {
                     </svg>
                   )}
                 </span>
-                Recordarme
+                Remember Me
               </>
             )}
           </Checkbox>
@@ -126,7 +128,7 @@ export default function Login() {
             type="submit"
             className="w-full bg-primary text-white font-semibold py-2 rounded hover:bg-green-600 transition-colors cursor-pointer"
           >
-            Iniciar sesión
+            Log In
           </Button>
         </form>
       </div>
