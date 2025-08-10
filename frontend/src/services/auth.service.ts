@@ -4,6 +4,7 @@ import {
   AuthTokens,
   authTokensSchema,
   LoginRequest,
+  OauthProvider,
   RegisterRequest,
 } from "@/types/auth";
 import { useAuthStore } from "@/stores/useAuthStore";

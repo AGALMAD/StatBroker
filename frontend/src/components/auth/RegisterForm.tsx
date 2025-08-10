@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { RegisterRequest } from "@/types/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Input, Checkbox, Button } from "@headlessui/react";
 import { registerUser } from "@/services/auth.service";
+import OAuthForm from "./OAuthForm";
 
 type RegisterFormType = {
   name: string;
@@ -114,7 +115,7 @@ export default function Register() {
               htmlFor="password"
               className="block text-sm text-secondaryText mb-1"
             >
-              Contraseña
+              Password
             </label>
             <Input
               id="password"
@@ -202,9 +203,18 @@ export default function Register() {
             type="submit"
             className="w-full bg-primary text-white font-semibold py-2 rounded hover:bg-green-600 transition-colors cursor-pointer"
           >
-            Iniciar sesión
+            Sing Up
           </Button>
         </form>
+
+        <p className="text-center text-sm text-secondaryText mt-10">
+          Already have an account?{" "}
+          <Link to="/auth/login" className="text-primary hover:underline">
+            Log in
+          </Link>
+        </p>
+
+        <OAuthForm />
       </div>
     </div>
   );

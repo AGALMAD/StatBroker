@@ -42,8 +42,8 @@ public class AuthController {
 
     }
 
-    @GetMapping("/oauth")
-    public ResponseEntity<AuthDto> loginSuccess(@AuthenticationPrincipal OAuth2User oauthUser) {
+    @PostMapping("/oauth")
+    public ResponseEntity<AuthDto> oauthLogin(@AuthenticationPrincipal OAuth2User oauthUser) {
         String email = oauthUser.getAttribute("email");
         String name = oauthUser.getAttribute("name");
 

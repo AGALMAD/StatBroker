@@ -1,9 +1,10 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFormState } from "react-hook-form";
 import { toast } from "react-toastify";
 import { loginUser } from "@/services/auth.service";
 import { LoginRequest } from "@/types/auth";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Input, Checkbox, Button } from "@headlessui/react";
+import OAuthForm from "./OAuthForm";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ export default function Login() {
     handleSubmit,
     setValue,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<LoginRequest>({
     defaultValues: {
       rememberMe: false,
@@ -69,7 +70,7 @@ export default function Login() {
               htmlFor="password"
               className="block text-sm text-secondaryText mb-1"
             >
-              Contraseña
+              Password
             </label>
             <Input
               id="password"
@@ -125,12 +126,22 @@ export default function Login() {
 
           {/* Submit Button */}
           <Button
+            disabled={isSubmitting}
             type="submit"
-            className="w-full bg-primary text-white font-semibold py-2 rounded hover:bg-green-600 transition-colors cursor-pointer"
+            className="w-full bg-primary text-white font-semibold py-2 rounded hover:bg-green-600 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Log In
           </Button>
         </form>
+
+        <p className="text-center text-sm text-secondaryText mt-10">
+          Don't have an account?{" "}
+          <Link to="/auth/register" className="text-primary hover:underline">
+            Sign up here
+          </Link>
+        </p>
+
+        <OAuthForm />
       </div>
     </div>
   );

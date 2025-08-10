@@ -18,4 +18,6 @@ export type RegisterRequest = {
   rememberMe: boolean;
 };
 
+export type OauthProvider = "google" | "github";
+
 export type AuthTokens = z.infer<typeof authTokensSchema>;
